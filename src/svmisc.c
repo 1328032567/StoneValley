@@ -603,6 +603,155 @@ void * svHeapSort(void * pbase, size_t num, size_t size, CBF_COMPARE cbfcmp)
 	return pbase;
 }
 
+
+/* Function name: svTimSort
+ * Description:   Time sort algorithm.
+ * Parameters:
+ *      pbase Pointer to the first object of the array to be sorted.
+ *        num Number of elements in the array.
+ *       size Size in bytes of each element in the array.
+ *     cbfcmp Pointer to a function that compares two elements.
+ *            Please refer to the type definition CBF_COMPARE in svdef.h.
+ * Return value:  If sorting succeeded, this function would return a same pointer as pbase pointed,
+ *                otherwise, this function would return value NULL.
+ * Tip:           Alter macro strSortArrayZ_M at file svstring.h,
+ *                and replace qsort with svMergeSort to make this function in charge.
+ *                This algorithm takes O(logn) space and O(n log n) time complexity.
+ *                Notice that heap sort is stable.
+ */
+// C++ program to perform TimSort. 
+// #include <bits/stdc++.h> 
+// using namespace std; 
+const int run = 32; 
+
+// this function sorts array from left 
+// index to to right index which is 
+// of size atmost run 
+void insertionsort(int arr[], int left, int right) 
+{ 
+	for (int i = left + 1; i <= right; i++) { 
+		int temp = arr[i]; 
+		int j = i - 1; 
+		while (j >= left && arr[j] > temp) { 
+			arr[j + 1] = arr[j]; 
+			j--; 
+		} 
+		arr[j + 1] = temp; 
+	} 
+} 
+
+// merge function merges the sorted runs 
+void merge(int arr[], int l, int m, int r) 
+{ 
+
+	// original array is broken in two 
+	// parts left and right array 
+	int len1 = m - l + 1, len2 = r - m; 
+	int left[len1], right[len2]; 
+	for (int i = 0; i < len1; i++) 
+		left[i] = arr[l + i]; 
+	for (int i = 0; i < len2; i++) 
+		right[i] = arr[m + 1 + i]; 
+
+	int i = 0; 
+	int j = 0; 
+	int k = l; 
+
+	// after comparing, we 
+	// merge those two array 
+	// in larger sub array 
+	while (i < len1 && j < len2) { 
+		if (left[i] <= right[j]) { 
+			arr[k] = left[i]; 
+			i++; 
+		} 
+		else { 
+			arr[k] = right[j]; 
+			j++; 
+		} 
+		k++; 
+	} 
+
+	// copy remaining elements of 
+	// left, if any 
+	while (i < len1) { 
+		arr[k] = left[i]; 
+		k++; 
+		i++; 
+	} 
+
+	// copy remaining element of 
+	// right, if any 
+	while (j < len2) { 
+		arr[k] = right[j]; 
+		k++; 
+		j++; 
+	} 
+} 
+
+// iterative timsort function to sort the 
+// array[0...n-1] (similar to merge sort) 
+void timsort(int arr[], int n) 
+{ 
+
+	// sort individual subarrays of size run 
+	for (int i = 0; i < n; i += run) 
+		insertionsort(arr, i, min((i + run - 1), (n - 1))); 
+
+	// start merging from size run (or 32). 
+	// it will merge 
+	// to form size 64, then 128, 256 
+	// and so on .... 
+	for (int size = run; size < n; size = 2 * size) { 
+
+		// pick starting point of 
+		// left sub array. we 
+		// are going to merge 
+		// arr[left..left+size-1] 
+		// and arr[left+size, left+2*size-1] 
+		// after every merge, we 
+		// increase left by 2*size 
+		for (int left = 0; left < n; left += 2 * size) { 
+
+			// find ending point of 
+			// left sub array 
+			// mid+1 is starting point 
+			// of right sub array 
+			int mid = left + size - 1; 
+			int right = min((left + 2 * size - 1), (n - 1)); 
+
+			// merge sub array arr[left.....mid] & 
+			// arr[mid+1....right] 
+			if (mid < right) 
+				merge(arr, left, mid, right); 
+		} 
+	} 
+} 
+
+// utility function to print the array 
+void printarray(int arr[], int n) 
+{ 
+	for (int i = 0; i < n; i++) 
+		printf("%d ", arr[i]); 
+	printf("\n"); 
+} 
+
+// driver program to test above function 
+int main() 
+{ 
+	int arr[] = { -2, 7, 15, -14, 0, 15, 0, 7, 
+				-7, -4, -13, 5, 8, -14, 12 }; 
+	int n = sizeof(arr) / sizeof(arr[0]); 
+	printf("given array is\n"); 
+	printarray(arr, n); 
+
+	// function call 
+	timsort(arr, n); 
+
+	printf("after sorting array is\n"); 
+	printarray(arr, n); 
+	return 0; 
+}
 /* Function name: svBinarySearch
  * Description:   Binary searching algorithm.
  * Parameters:
