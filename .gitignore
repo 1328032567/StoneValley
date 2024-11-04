@@ -1,0 +1,20 @@
+# Compiled files
+*.o
+*.out
+*.exe
+
+# Temporary files
+*.tmp
+*.log
+
+# Editor and IDE files
+*.swp
+*.vscode/
+*.idea/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Doc files
+*.pdf
