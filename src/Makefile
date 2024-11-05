@@ -23,7 +23,7 @@ all: $(TARGET)
 
 # Create static library
 $(TARGET): $(OBJ)
-	ar rcs $@ $^
+	ar crv $@ $^
 
 # Compilation rule for object files
 %.o: %.c
