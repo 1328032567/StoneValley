@@ -36,7 +36,7 @@ test:
 # Unix test
 .PHONY: test-unix
 test-unix: $(TARGET) $(TEST_UNIX)
-	$(CC) -o sort_test_unix $(TEST_UNIX) -L. -lsv -v
+	$(CC) -o sort_test_unix $(TEST_UNIX) -L. -lsv
 	time ./sort_test_unix -1
 
 # Windows test
