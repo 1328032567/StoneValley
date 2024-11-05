@@ -689,6 +689,10 @@ void merge(int arr[], int l, int m, int r)
 	} 
 } 
 
+int min(int a, int b) {
+	return a > b ? b : a;
+}
+
 // iterative timsort function to sort the 
 // array[0...n-1] (similar to merge sort) 
 void timsort(int arr[], int n) 
@@ -737,6 +741,7 @@ void printarray(int arr[], int n)
 } 
 
 // driver program to test above function 
+/*
 int main() 
 { 
 	int arr[] = { -2, 7, 15, -14, 0, 15, 0, 7, 
@@ -752,6 +757,7 @@ int main()
 	printarray(arr, n); 
 	return 0; 
 }
+*/
 /* Function name: svBinarySearch
  * Description:   Binary searching algorithm.
  * Parameters:
