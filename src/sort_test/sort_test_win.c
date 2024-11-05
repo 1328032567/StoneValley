@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <Windows.h>
-#include "svstring.h"
+#include "../svstring.h"
 
 #define MYTYPE int
 #define SIZE (1024 * 1024 * 128)
