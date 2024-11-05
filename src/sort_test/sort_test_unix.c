@@ -68,6 +68,17 @@ int main(int argc, char ** argv)
 				return 1;
 	}
 
+	if (!strcmp(argv[1], "-5"))
+	{
+		#define SIZE 100
+		srand(1);
+		for (i = 0; i < SIZE; ++i)
+			arr[i] = rand();
+		svTimSort(arr, SIZE, sizeof(MYTYPE), cbfcmp);
+		for (i = 0; i < SIZE - 1; ++i)
+			if (arr[i] > arr[i + 1])
+				return 1;
+	}
 	printf("Finish.\n");
 	return 0;
 }
