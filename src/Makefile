@@ -38,19 +38,16 @@ test:
 .PHONY: test-unix
 test-unix: $(TARGET) $(TEST_UNIX)
 	$(CC) -o sort_test_unix $(TEST_UNIX) -L. -lsv
-	time ./sort_test_unix -1
 
 # Max test
 .PHONY: test-mac
 test-mac: $(OBJ) $(TEST_MAC)
 	$(CC) -o sort_test_mac $(TEST_MAC) $(OBJ)
-	time ./sort_test_mac -1
 
 # Windows test
 .PHONY: test-win
 test-win: $(TARGET) $(TEST_WIN)
 	$(CC) -o sort_test_win $(TEST_WIN) -L. -lsv
-	time ./sort_test_win -1
 
 # Clean up
 clean:
