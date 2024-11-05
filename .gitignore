@@ -1,3 +1,6 @@
+# Executable files
+*
+
 # Static lib files
 *.a
 
@@ -21,3 +24,7 @@ Thumbs.db
 
 # Doc files
 *.pdf
+
+# Not ignore *.c *.h files
+!*.c
+!*.h
