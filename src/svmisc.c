@@ -695,9 +695,11 @@ int min(int a, int b) {
 
 // iterative timsort function to sort the 
 // array[0...n-1] (similar to merge sort) 
-void timsort(int arr[], int n) 
-{ 
 
+void * svTimSort(void * pbase, size_t num, size_t size, CBF_COMPARE cbfcmp) 
+{ 
+	int* arr = (int *) pbase;
+	int n = num;
 	// sort individual subarrays of size run 
 	for (int i = 0; i < n; i += run) 
 		insertionsort(arr, i, min((i + run - 1), (n - 1))); 
@@ -730,6 +732,7 @@ void timsort(int arr[], int n)
 				merge(arr, left, mid, right); 
 		} 
 	} 
+	return pbase;
 } 
 
 // utility function to print the array 
@@ -742,6 +745,12 @@ void printarray(int arr[], int n)
 
 // driver program to test above function 
 /*
+#define MYTYPE int
+#define SIZE (1024 * 1024 * 128)
+int cbfcmp(const void * px, const void * py)
+{
+	return *(MYTYPE *)px - *(MYTYPE *)py;
+}
 int main() 
 { 
 	int arr[] = { -2, 7, 15, -14, 0, 15, 0, 7, 
@@ -751,13 +760,14 @@ int main()
 	printarray(arr, n); 
 
 	// function call 
-	timsort(arr, n); 
+	svTimSort(arr, n, 0, cbfcmp); 
 
 	printf("after sorting array is\n"); 
 	printarray(arr, n); 
 	return 0; 
 }
 */
+
 /* Function name: svBinarySearch
  * Description:   Binary searching algorithm.
  * Parameters:
